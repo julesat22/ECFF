@@ -1,0 +1,301 @@
+---
+import { NewsletterForm } from '@/components/islands/NewsletterForm/NewsletterForm'
+
+// Connect links — Instagram + email both treated as outbound destinations,
+// matched `↗` glyphs to keep them visually symmetric.
+const CONNECT_LINKS = [
+  {
+    label: 'Instagram',
+    href: 'https://instagram.com/eaglecapfilmfest',
+    external: true,
+  },
+  {
+    label: 'hello@eaglecapfilmfest.org',
+    href: 'mailto:hello@eaglecapfilmfest.org',
+    external: false,
+  },
+]
+---
+
+<footer>
+  <div class="container">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <img src="/assets/logo-offwhite.png" alt="Eagle Cap Film Festival" />
+      </div>
+
+      <div class="ft-cell">
+        <div class="ft-lbl">Edition I</div>
+        <div class="ft-val">November 5 — 7</div>
+        <div class="ft-sub">2026</div>
+      </div>
+
+      <div class="ft-cell">
+        <div class="ft-lbl">Location</div>
+        <div class="ft-val">Joseph, Oregon</div>
+        <div class="ft-sub">Wallowa County</div>
+      </div>
+
+      <div class="ft-connect">
+        <div class="ft-lbl">Connect</div>
+        <div class="ft-links">
+          {CONNECT_LINKS.map((l) =>
+            l.external ? (
+              <a href={l.href} target="_blank" rel="noopener noreferrer">
+                {l.label} <span class="arr" aria-hidden="true">↗</span>
+              </a>
+            ) : (
+              <a href={l.href}>
+                {l.label} <span class="arr" aria-hidden="true">↗</span>
+              </a>
+            ),
+          )}
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <p class="copyright">© 2026 Eagle Cap Film Festival · Joseph, Oregon</p>
+      <NewsletterForm client:visible />
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: var(--color-black);
+    color: var(--color-offwhite);
+    padding: 80px 0 40px;
+  }
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 36px;
+  }
+
+  /* Four-column row, top-aligned across all cells. Mirrors the editorial
+     grid vocabulary used elsewhere on the page. */
+  .ft-top {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr 1fr 1.2fr;
+    gap: 0;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--color-rule-dark);
+    align-items: stretch;
+  }
+
+  .ft-brand {
+    display: flex;
+    align-items: flex-start;
+    padding-right: 40px;
+    padding-top: 4px;
+  }
+  .ft-brand img {
+    width: 160px;
+    opacity: 0.92;
+    filter: brightness(0) invert(1);
+  }
+
+  /* Info + Connect cells share the same skeleton — vertical hairline between
+     each cell on desktop, value/subtitle stacked top-aligned. */
+  .ft-cell,
+  .ft-connect {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 4px 40px;
+    border-left: 1px solid var(--color-rule-dark);
+    justify-content: flex-start;
+  }
+  .ft-connect {
+    gap: 0;
+  }
+
+  /* Mono kicker label — uppercase, wide letterspacing. */
+  .ft-lbl {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-muted-dark);
+    margin: 0 0 14px;
+    line-height: 1;
+  }
+
+  /* Bebas display value. */
+  .ft-val {
+    font-family: var(--font-display);
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    color: var(--color-offwhite);
+    line-height: 1;
+  }
+
+  /* Bodoni italic subtitle. */
+  .ft-sub {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 14px;
+    color: var(--color-muted-dark);
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  /* Connect links — both rows share identical glyph (↗) so Instagram and
+     email read as symmetric outbound destinations. */
+  .ft-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .ft-links a {
+    font-family: var(--font-serif);
+    font-size: 16px;
+    color: var(--color-offwhite);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    line-height: 1;
+    transition: color 200ms ease;
+    text-decoration: none;
+  }
+  .ft-links a:hover,
+  .ft-links a:focus-visible {
+    color: var(--color-yellow);
+    outline: none;
+  }
+  .ft-links a:focus-visible {
+    text-decoration: underline;
+    text-decoration-color: var(--color-yellow);
+    text-underline-offset: 4px;
+  }
+  .ft-links .arr {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--color-muted-dark);
+    transition:
+      color 200ms ease,
+      transform 200ms ease;
+  }
+  .ft-links a:hover .arr,
+  .ft-links a:focus-visible .arr {
+    color: var(--color-yellow);
+    transform: translateX(2px);
+  }
+
+  /* Bottom utility row — copyright + newsletter, the page's last beat.
+     No giant ghosted wordmark below this row; the footer ends here. */
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 28px;
+    gap: 24px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-muted-dark);
+  }
+  .copyright {
+    margin: 0;
+  }
+
+  @media (max-width: 980px) {
+    /* Mobile composition reads top-to-bottom on a single center axis:
+       Logo → ─── → Edition ▏ Location → ─── → Connect → ─── → Copyright
+         → Newsletter (framed input+button row, 360px max).
+       Logo + Connect each span the full width; Edition + Location pair
+       in a 2-col row with a vertical hairline between them — that paired
+       row removes the monotonous all-stacked rhythm and shortens the
+       footer significantly. */
+    footer {
+      padding: 56px 0 36px;
+      text-align: center;
+    }
+    .container {
+      padding: 0 20px;
+    }
+
+    .ft-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      padding-bottom: 28px;
+    }
+
+    /* Logo: full-width, centered, hairline below sets up the colophon. */
+    .ft-brand {
+      grid-column: 1 / -1;
+      padding: 0 0 28px;
+      justify-content: center;
+    }
+    .ft-brand img {
+      width: 150px;
+    }
+
+    /* Info cells: each takes one column of the paired row; the first
+       carries a vertical hairline to divide it from Location. Both
+       center-aligned so labels + values share a single text axis. */
+    .ft-cell {
+      border-left: 0;
+      border-top: 1px solid var(--color-rule-dark);
+      padding: 24px 12px;
+      align-items: center;
+      text-align: center;
+      min-height: 0;
+    }
+    .ft-cell:nth-of-type(2) {
+      grid-column: 1 / 2;
+      grid-row: 2;
+      border-right: 1px solid var(--color-rule-dark);
+    }
+    .ft-cell:nth-of-type(3) {
+      grid-column: 2 / 3;
+      grid-row: 2;
+    }
+
+    /* Connect: full-width below the paired row, links centered + stacked. */
+    .ft-connect {
+      grid-column: 1 / -1;
+      border-left: 0;
+      border-top: 1px solid var(--color-rule-dark);
+      padding: 24px 0 0;
+      align-items: center;
+      text-align: center;
+      min-height: 0;
+    }
+    .ft-links {
+      align-items: center;
+    }
+
+    .ft-val {
+      font-size: 22px;
+    }
+    .ft-lbl {
+      margin-bottom: 12px;
+    }
+
+    /* Bottom: stacked & centered. The newsletter form's mobile layout
+       (single bordered field with input + button on one row, vertical
+       hairline between) lives inside NewsletterForm.module.css so the
+       form renders with its own scoped CSS module classes. */
+    .bottom {
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      text-align: center;
+      padding-top: 24px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ft-links a,
+    .ft-links .arr {
+      transition: none;
+    }
+    .ft-links a:hover .arr,
+    .ft-links a:focus-visible .arr {
+      transform: none;
+    }
+  }
+</style>

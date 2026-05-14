@@ -1,0 +1,121 @@
+@import 'tailwindcss';
+
+@import '@fontsource/bebas-neue/400.css';
+@import '@fontsource-variable/bodoni-moda';
+@import '@fontsource-variable/bodoni-moda/wght-italic.css';
+
+@theme {
+  --color-black: #000000;
+  --color-ink: #111111;
+  --color-paper: #f3efea;
+  --color-offwhite: #f3efea;
+  --color-yellow: #ffea00;
+
+  --color-rule: rgba(0, 0, 0, 0.14);
+  --color-rule-dark: rgba(243, 239, 234, 0.18);
+  --color-muted: rgba(17, 17, 17, 0.6);
+  --color-muted-dark: rgba(243, 239, 234, 0.7);
+
+  --font-display: 'Bebas Neue', 'Oswald', Impact, sans-serif;
+  --font-serif: 'Bodoni Moda Variable', 'Bodoni 72 Oldstyle', 'Bodoni MT', Didot, serif;
+  --font-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace;
+
+  --container-site: 1440px;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  /* Safety net: prevent any rogue child (e.g. mountain at width:200%, marquee,
+     wide grid) from pushing the page wide on narrow viewports. `clip` is
+     preferred over `hidden` because it doesn't establish a scroll container —
+     so position:sticky on the nav still works correctly. */
+  overflow-x: clip;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.skip-link {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 100;
+  padding: 8px 12px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transform: translateY(-150%);
+  transition: transform 150ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--color-yellow);
+  outline-offset: 2px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 800ms ease,
+    transform 800ms ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

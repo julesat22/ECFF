@@ -1,0 +1,26 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Ticker from '@/components/sections/Ticker.astro'
+import Editorial from '@/components/sections/Editorial.astro'
+import Sponsors from '@/components/sections/Sponsors.astro'
+import Venues from '@/components/sections/Venues.astro'
+import SponsorshipTiers from '@/components/sections/SponsorshipTiers.astro'
+import SiteFooter from '@/components/sections/SiteFooter.astro'
+import Hero from '@/components/sections/Hero.astro'
+import SpotlightSection from '@/components/sections/SpotlightSection.astro'
+import { Nav } from '@/components/islands/Nav/Nav'
+---
+
+<BaseLayout>
+  <Nav client:load />
+  <Ticker />
+  <Hero />
+  <main id="main">
+    <SpotlightSection />
+    <Editorial />
+    <Venues />
+    <SponsorshipTiers />
+    <Sponsors />
+  </main>
+  <SiteFooter />
+</BaseLayout>

@@ -1,0 +1,132 @@
+---
+import { SPONSORS } from '@/content/sponsors'
+---
+
+<section class="sponsors" aria-labelledby="sponsors-heading">
+  <div class="container reveal">
+    <p class="kicker">Made possible by</p>
+    <p id="sponsors-heading" class="lockup">Friends of the Festival</p>
+    <ul class="row" role="list">
+      {
+        SPONSORS.map((s) => (
+          <li class={`partner partner-${s.slug}`}>
+            <img
+              src={`/assets/partners/${s.filename}`}
+              alt={s.name}
+              loading="lazy"
+              decoding="async"
+            />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .sponsors {
+    padding: 96px 0;
+    background: var(--color-paper);
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+  }
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 36px;
+  }
+  .kicker {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    text-align: center;
+  }
+  .lockup {
+    margin: 6px 0 48px;
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 0.02em;
+    color: var(--color-ink);
+    text-align: center;
+  }
+  .row {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 32px;
+    align-items: center;
+  }
+  .partner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    min-height: 96px;
+    transition: opacity 200ms ease;
+  }
+  .partner img {
+    max-height: 72px;
+    max-width: 160px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    opacity: 0.78;
+    transition: opacity 200ms ease;
+  }
+  /* M. Crow is a horizontal wordmark — give it a touch more breathing room
+     so the kerning reads, but cap its height like the rest. */
+  .partner-mcrow img {
+    max-height: 36px;
+    max-width: 180px;
+  }
+  .partner:hover img {
+    opacity: 1;
+  }
+
+  @media (max-width: 1100px) {
+    .row {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px 24px;
+    }
+  }
+
+  @media (max-width: 980px) {
+    .sponsors {
+      /* Mobile section rhythm: 36px top/bottom across all sections. */
+      padding: 36px 0;
+    }
+    .container {
+      padding: 0 20px;
+    }
+    .lockup {
+      margin-bottom: 32px;
+    }
+    .row {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 20px;
+    }
+    .partner {
+      min-height: 80px;
+    }
+    .partner img {
+      max-height: 64px;
+      max-width: 140px;
+    }
+    .partner-mcrow img {
+      max-height: 32px;
+      max-width: 150px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .partner,
+    .partner img {
+      transition: none;
+    }
+  }
+</style>

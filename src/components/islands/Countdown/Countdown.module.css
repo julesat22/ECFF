@@ -1,0 +1,69 @@
+.units {
+  display: flex;
+  gap: 28px;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  min-width: 88px;
+  font-variant-numeric: tabular-nums;
+}
+
+.number {
+  font-family: var(--font-display);
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--color-offwhite);
+}
+
+.accent {
+  color: var(--color-yellow);
+}
+
+.unit {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: 6px;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.95),
+    0 0 14px rgba(0, 0, 0, 0.8);
+}
+
+@media (max-width: 980px) {
+  .units {
+    width: 100%;
+    /* Equal-share cells instead of min-width:88px each — that previous setup
+       summed to 352px + gaps and overflowed iPhone-class viewports (335px
+       content area), clipping "09 SEC" off the right edge. tabular-nums
+       keeps the digits aligned across cells without needing a width floor. */
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .block {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .number {
+    font-size: 44px;
+  }
+  .unit {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+}
+
+@media (max-width: 480px) {
+  .units {
+    gap: 10px;
+  }
+  .number {
+    font-size: 36px;
+  }
+}

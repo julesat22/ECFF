@@ -1,0 +1,297 @@
+---
+import { SPONSOR_TIERS, SPONSOR_CONTACT_EMAIL } from '@/content/sponsorTiers'
+import SectionHead from '@/components/ui/SectionHead.astro'
+---
+
+<section class="sponsorship" id="sponsors" aria-labelledby="sponsorship-heading">
+  <div class="container">
+    <SectionHead
+      id="sponsorship-heading"
+      kicker="Sponsorship Opportunities"
+      title={'Be part of the <span class="it">first-ever</span> Eagle Cap Film Festival.'}
+      right="Reach out to partner with us before fundraising closes September 1, 2026."
+      dark
+    />
+    <div class="sp-tiers reveal">
+      {
+        SPONSOR_TIERS.map((t) => {
+          const ctaLabel = `Become a ${t.name.replace(' Sponsor', '')} Sponsor`
+          return (
+            <div class:list={['sp-tier', { feat: t.feat }]}>
+              <p class="sp-name">{t.name}</p>
+              <p class="sp-price">
+                <span class="sign">$</span>
+                <span class="amt">{t.contribution}</span>
+              </p>
+              <div class="sp-block">
+                <p class="sp-block-lbl">Visibility</p>
+                <ul class="sp-list">
+                  {t.visibility.map((v) => <li>{v}</li>)}
+                </ul>
+              </div>
+              <div class="sp-block sp-block-fit">
+                <p class="sp-block-lbl">Best Fit</p>
+                <div class="sp-fit">
+                  {t.fit.map((f) => <span class="sp-tag">{f}</span>)}
+                </div>
+              </div>
+              <a href={`mailto:${SPONSOR_CONTACT_EMAIL}?subject=${encodeURIComponent(ctaLabel)}`} class="sp-cta">
+                <span>{ctaLabel}</span>
+                <span class="arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          )
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .sponsorship {
+    background: var(--color-black);
+    color: var(--color-offwhite);
+    padding: 96px 0 120px;
+    position: relative;
+  }
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 36px;
+  }
+
+  /* Drop the SectionHead bottom rule and tighten the gap below the title —
+     the .sp-tiers top border is the only divider we need in this section. */
+  .sponsorship :global(.section-head) {
+    border-bottom: 0;
+    padding-bottom: 12px;
+  }
+
+  .sp-tiers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 20px;
+    border-top: 1px solid var(--color-rule-dark);
+    border-bottom: 1px solid var(--color-rule-dark);
+  }
+
+  .sp-tier {
+    position: relative;
+    padding: 36px 32px 32px;
+    border-right: 1px solid var(--color-rule-dark);
+    display: flex;
+    flex-direction: column;
+    transition: background-color 200ms ease;
+  }
+  .sp-tier:last-child {
+    border-right: 0;
+  }
+
+  /* Visibility absorbs height variance; Best Fit + CTA align across cards */
+  .sp-tier .sp-block:first-of-type {
+    flex: 1 1 auto;
+  }
+  .sp-block-fit {
+    margin-top: 0;
+    margin-bottom: 22px;
+    min-height: 96px;
+  }
+  .sp-block-fit .sp-fit {
+    align-content: flex-start;
+  }
+
+  .sp-tier.feat {
+    background: var(--color-yellow);
+    color: var(--color-black);
+  }
+
+  .sp-name {
+    margin: 0 0 4px;
+    font-family: var(--font-display);
+    font-size: 32px;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .sp-price {
+    margin: 18px 0 28px;
+    font-family: var(--font-display);
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+    line-height: 1;
+  }
+  .sp-price .sign {
+    font-size: 28px;
+    margin-top: 8px;
+    opacity: 0.7;
+  }
+  .sp-price .amt {
+    font-size: clamp(56px, 5.6vw, 88px);
+    letter-spacing: -0.01em;
+  }
+  .sp-tier.feat .sp-price .sign {
+    opacity: 0.85;
+  }
+
+  .sp-block {
+    margin-bottom: 22px;
+  }
+  .sp-block-lbl {
+    margin: 0 0 10px;
+    padding-bottom: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(243, 239, 234, 0.55);
+    border-bottom: 1px solid var(--color-rule-dark);
+  }
+  .sp-tier.feat .sp-block-lbl {
+    color: rgba(0, 0, 0, 0.6);
+    border-bottom-color: rgba(0, 0, 0, 0.18);
+  }
+
+  .sp-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 16.5px;
+    line-height: 1.45;
+    color: rgba(243, 239, 234, 0.85);
+  }
+  .sp-list li {
+    padding: 5px 0 5px 16px;
+    position: relative;
+  }
+  .sp-list li::before {
+    content: '✦';
+    color: var(--color-yellow);
+    position: absolute;
+    left: 0;
+    top: 5px;
+    font-size: 9px;
+  }
+  .sp-tier.feat .sp-list {
+    color: rgba(0, 0, 0, 0.85);
+  }
+  .sp-tier.feat .sp-list li::before {
+    color: var(--color-black);
+  }
+
+  .sp-fit {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .sp-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border: 1px solid var(--color-rule-dark);
+    color: var(--color-offwhite);
+  }
+  .sp-tier.feat .sp-tag {
+    border-color: rgba(0, 0, 0, 0.3);
+    color: var(--color-black);
+  }
+
+  .sp-cta {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border: 1px solid var(--color-rule-dark);
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-offwhite);
+    text-decoration: none;
+    transition:
+      background-color 150ms ease,
+      color 150ms ease,
+      border-color 150ms ease;
+  }
+  .sp-cta .arrow {
+    font-family: var(--font-display);
+    font-size: 16px;
+  }
+  .sp-cta:hover,
+  .sp-cta:focus-visible {
+    background: var(--color-yellow);
+    color: var(--color-black);
+    border-color: var(--color-yellow);
+    outline: none;
+  }
+  .sp-tier.feat .sp-cta {
+    color: var(--color-black);
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+  .sp-tier.feat .sp-cta:hover,
+  .sp-tier.feat .sp-cta:focus-visible {
+    background: var(--color-black);
+    color: var(--color-yellow);
+    border-color: var(--color-black);
+  }
+
+  @media (max-width: 980px) {
+    .sponsorship {
+      /* Mobile section rhythm: 36px top/bottom across all sections. */
+      padding: 36px 0;
+    }
+    .container {
+      padding: 0 20px;
+    }
+    .sp-tiers {
+      grid-template-columns: 1fr;
+      border-top: 0;
+      /* 22px gap below SectionHead matches the global mobile section rhythm
+         (overrides the 20px desktop margin-top so it lines up with other
+         sections' .grid / .venues-grid / .m-grid spacing). */
+      margin-top: 22px;
+    }
+    /* Non-featured tiers drop their horizontal padding so the tier content
+       (name / price / list) aligns flush with the section title and intro.
+       Vertical padding stays for breathing room between stacked tiers. */
+    .sp-tier {
+      border-right: 0;
+      border-bottom: 1px solid var(--color-rule-dark);
+      padding: 24px 0;
+    }
+    .sp-tier:last-child {
+      border-bottom: 0;
+    }
+    /* The Title Sponsor (feat) is its own visual container — yellow box
+       with internal padding. Keep its horizontal inset so the box reads
+       as a contained card rather than a full-bleed band. */
+    .sp-tier.feat {
+      padding: 28px 22px;
+    }
+    .sp-block-fit {
+      min-height: 0;
+    }
+    .sp-name {
+      font-size: 26px;
+    }
+    .sp-price {
+      margin: 14px 0 22px;
+    }
+    .sp-price .amt {
+      font-size: 56px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sp-tier,
+    .sp-cta {
+      transition: none;
+    }
+  }
+</style>

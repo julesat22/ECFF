@@ -1,0 +1,95 @@
+.form {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.input {
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-rule-dark);
+  color: var(--color-offwhite);
+  padding: 6px 0;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  min-width: 200px;
+  outline: none;
+  transition: border-color 150ms ease;
+}
+
+.input:focus {
+  border-bottom-color: var(--color-yellow);
+}
+
+.input:invalid:not(:placeholder-shown) {
+  border-bottom-color: #ff4d1f;
+}
+
+.button {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-yellow);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-yellow);
+  outline-offset: 4px;
+}
+
+.liveRegion {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 980px) {
+  /* Mobile footer pairs the input + Subscribe button as a single editorial
+     "field": one outer hairline border around both, vertical hairline between
+     them. Reads as one element rather than two stacked controls. Capped at
+     360px so it doesn't span the full mobile width on larger phones. */
+  .form {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    border: 1px solid var(--color-rule-dark);
+  }
+  .input {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+    font-size: 14px;
+    text-align: left;
+    padding: 12px 14px;
+    /* Override the desktop border-bottom — the form's outer border is
+       now the only frame. */
+    border: 0;
+  }
+  .button {
+    align-self: stretch;
+    padding: 12px 18px;
+    border: 0;
+    border-left: 1px solid var(--color-rule-dark);
+    background: transparent;
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .input {
+    transition: none;
+  }
+}

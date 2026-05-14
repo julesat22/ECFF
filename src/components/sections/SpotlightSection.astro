@@ -1,0 +1,37 @@
+---
+import SectionHead from '@/components/ui/SectionHead.astro'
+import { SpotlightWithModal } from '@/components/islands/Spotlight/SpotlightWithModal'
+---
+
+<section class="spotlight" id="spotlights" aria-labelledby="spotlight-heading">
+  <div class="container reveal">
+    <SectionHead
+      id="spotlight-heading"
+      kicker="Featured Films"
+      title={'The opening night <span class="it">film</span>.'}
+      right="Two more spotlight reveals coming soon. Sign up to be the first to know."
+    />
+    <SpotlightWithModal client:load />
+  </div>
+</section>
+
+<style>
+  .spotlight {
+    padding: 0 0 80px;
+    background: var(--color-paper);
+  }
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 36px;
+  }
+  @media (max-width: 980px) {
+    .spotlight {
+      /* Mobile section rhythm: 36px top/bottom across all sections. */
+      padding: 36px 0;
+    }
+    .container {
+      padding: 0 20px;
+    }
+  }
+</style>

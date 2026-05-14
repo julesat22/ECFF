@@ -1,0 +1,130 @@
+---
+type Props = {
+  kicker: string
+  title: string
+  right?: string
+  dark?: boolean
+  /** When true, kicker / title / right copy are center-aligned on mobile.
+   *  Desktop layout is unchanged regardless. */
+  centered?: boolean
+  id?: string
+}
+
+const { kicker, title, right, dark = false, centered = false, id } = Astro.props
+---
+
+<div class:list={['section-head', { dark, centered }]}>
+  <div class="left">
+    <p class="kicker">{kicker}</p>
+    <h2 id={id} set:html={title} />
+  </div>
+  {right && <p class="right">{right}</p>}
+</div>
+
+<style>
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    padding: 80px 0 28px;
+    border-bottom: 1px solid var(--color-rule);
+    gap: 24px;
+  }
+  .section-head.dark {
+    border-bottom-color: var(--color-rule-dark);
+    color: var(--color-offwhite);
+  }
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .kicker {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-head.dark .kicker {
+    color: var(--color-muted-dark);
+  }
+  .kicker::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--color-ink);
+  }
+  .section-head.dark .kicker::before {
+    background: var(--color-offwhite);
+  }
+  h2 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -0.005em;
+  }
+  h2 :global(.it) {
+    font-family: var(--font-serif);
+    font-style: italic;
+    text-transform: none;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+  .right {
+    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 16px;
+    max-width: 360px;
+    color: var(--color-muted);
+    text-align: right;
+    padding-bottom: 8px;
+  }
+  .section-head.dark .right {
+    color: var(--color-muted-dark);
+  }
+
+  @media (max-width: 980px) {
+    .section-head {
+      grid-template-columns: 1fr;
+      /* No top padding on mobile — the section's own 22px top padding is the
+         only top space. Previous 56px was creating 78px of dead air above
+         every kicker, which is what made Spotlight / Venues / Sponsorship
+         all feel like they had "too much" padding-top vs. the bottom. */
+      padding: 0 0 22px;
+      gap: 16px;
+    }
+    h2 {
+      font-size: clamp(40px, 11vw, 64px);
+    }
+    .right {
+      text-align: left;
+      max-width: 100%;
+      padding-bottom: 0;
+      font-size: 15px;
+    }
+
+    /* Centered variant — used on mobile-Venues so kicker / title / subtext
+       all center horizontally on a single column. The leading hairline
+       before the kicker is hidden because it doesn't read centered. */
+    .section-head.centered .left {
+      align-items: center;
+      text-align: center;
+    }
+    .section-head.centered .kicker {
+      justify-content: center;
+    }
+    .section-head.centered .kicker::before {
+      display: none;
+    }
+    .section-head.centered .right {
+      text-align: center;
+    }
+  }
+</style>
